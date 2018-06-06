@@ -1,3 +1,5 @@
+Forked version of https://github.com/nambo/gulp-js-import, adds more options.
+
 ## INSTALL
 
 ```
@@ -16,7 +18,10 @@ var jsImport = require('gulp-js-import');
 
 gulp.task('import', function() {
   return gulp.src('index.js')
-        .pipe(jsImport({hideConsole: true}))
+        .pipe(jsImport({
+            hideConsole: true,
+            importStack: true
+        }))
         .pipe(gulp.dest('dist'));
 });
 ```
@@ -61,6 +66,11 @@ output(config);
 ```
 
 in `index.js`, you can use `@import 'xxx.js'` when you want import a js file
+
+### Options
+hideConsole - hides console
+importStack - import file only once
+es6import - you don't have to use @ as prefix
 
 ### Run
 
