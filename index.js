@@ -10,8 +10,12 @@ module.exports = function (options) {
     if (!path) {
       return ''
     }
-
-    const fileReg = /import\s["'](.*\.js)["']/gi
+    const fileReg;
+    if (options.es6import) {
+        fileReg = /import\s["'](.*\.js)["']/gi
+    } else {
+        fileReg = /@import\s["'](.*\.js)["']/gi
+    }
 
     if (!fs.existsSync(path)) {
       throw new Error('file ' + path + ' no exist')
