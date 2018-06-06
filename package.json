@@ -1,7 +1,7 @@
 {
-  "name": "gulp-js-import",
-  "version": "1.0.6",
-  "description": "A gulp plugin which can import .js files into .js files",
+  "name": "gulp-js-import-file",
+  "version": "1.0.7",
+  "description": "Forked version of gulp-js-import, a gulp plugin which can import .js files into .js files",
   "keywords": [
     "gulp",
     "js",
@@ -11,18 +11,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "nambo",
+  "author": "nambo, evromalarkey",
   "dependencies": {
     "gulp-util": "^3.0.7",
     "through2": "^2.0.1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nambo/gulp-js-import.git"
+    "url": "https://github.com/newlogic-cz/gulp-js-import-file.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nambo/gulp-js-import/issues"
+    "url": "https://github.com/newlogic-cz/gulp-js-import-file/issues"
   },
-  "homepage": "https://github.com/nambo/gulp-js-import#readme"
+  "homepage": "https://github.com/newlogic-cz/gulp-js-import-file#readme"
 }
