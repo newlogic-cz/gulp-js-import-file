@@ -10,7 +10,7 @@ module.exports = function (options) {
     if (!path) {
       return ''
     }
-    const fileReg;
+    let fileReg;
     if (options.es6import) {
         fileReg = /import\s["'](.*\.js)["']/gi
     } else {
