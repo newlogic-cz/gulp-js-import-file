@@ -11,7 +11,7 @@ module.exports = function (options) {
       return ''
     }
 
-    const fileReg = /@import\s["'](.*\.js)["']/gi
+    const fileReg = /import\s["'](.*\.js)["']/gi
 
     if (!fs.existsSync(path)) {
       throw new Error('file ' + path + ' no exist')
@@ -25,9 +25,10 @@ module.exports = function (options) {
 
     content = content.replace(fileReg, (match, fileName) => {
       let importPath = path.replace(/[^\/]*\.js$/, fileName)
-
-      if (importPath in importStack) {
-        return ''
+      if (options.importStack) {
+          if (importPath in importStack) {
+	    return ''
+	  }
       }
 
       !options.hideConsole && console.log('import "' + fileName + '" --> "' + path + '"')
