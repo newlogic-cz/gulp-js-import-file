@@ -68,9 +68,9 @@ output(config);
 in `index.js`, you can use `@import 'xxx.js'` when you want import a js file
 
 ### Options
-hideConsole - hides console
-importStack - import file only once
-es6import - you don't have to use @ as prefix
+* hideConsole - hides console
+* importStack - import file only once
+* es6import - you don't have to use @ as prefix
 
 ### Run
 
