@@ -1,6 +1,6 @@
 {
   "name": "gulp-js-import-file",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Forked version of gulp-js-import, a gulp plugin which can import .js files into .js files",
   "keywords": [
     "gulp",
