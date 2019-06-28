@@ -28,7 +28,7 @@ module.exports = function (options) {
     importStack[path] = path
 
     content = content.replace(fileReg, (match, fileName) => {
-      let importPath = path.replace(/[^\/]*\.js$/, fileName)
+      let importPath = path.replace(/[^\\^\/]*\.js$/, fileName)
       if (options.importStack) {
           if (importPath in importStack) {
 	    return ''
