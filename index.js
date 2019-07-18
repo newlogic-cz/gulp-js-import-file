@@ -1,72 +1,72 @@
-'use strict'
-const gutil = require('gulp-util')
-const through = require('through2')
-const fs = require('fs')
+"use strict";
+const replaceExtension = require("replace-ext");
+const PluginError = require("plugin-error");
+const through = require("through2");
+const fs = require("fs");
 
-module.exports = function (options) {
-  options = options || {};
-  let importStack = {}
-  const importJS = (path) => {
-    if (!path) {
-      return ''
-    }
-    let fileReg;
-    if (options.es6import) {
-        fileReg = /import\s["'](.*\.js)["']/gi
-    } else {
-        fileReg = /@import\s["'](.*\.js)["']/gi
-    }
+module.exports = function(options) {
+	options = options || {};
+	let importStack = {};
+	const importJS = path => {
+		if (!path) {
+			return "";
+		}
+		let fileReg;
+		if (options.es6import) {
+			fileReg = /import\s["'](.*\.js)["']/gi;
+		} else {
+			fileReg = /@import\s["'](.*\.js)["']/gi;
+		}
 
-    if (!fs.existsSync(path)) {
-      throw new Error('file ' + path + ' no exist')
-    }
+		if (!fs.existsSync(path)) {
+			throw new Error("file " + path + " no exist");
+		}
 
-    let content = fs.readFileSync(path, {
-        encoding: 'utf8'
-    })
+		let content = fs.readFileSync(path, {
+			encoding: "utf8",
+		});
 
-    importStack[path] = path
+		importStack[path] = path;
 
-    content = content.replace(fileReg, (match, fileName) => {
-      let importPath = path.replace(/[^\\^\/]*\.js$/, fileName)
-      if (options.importStack) {
-          if (importPath in importStack) {
-	    return ''
-	  }
-      }
+		content = content.replace(fileReg, (match, fileName) => {
+			let importPath = path.replace(/[^\\^\/]*\.js$/, fileName);
+			if (options.importStack) {
+				if (importPath in importStack) {
+					return "";
+				}
+			}
 
-      !options.hideConsole && console.log('import "' + fileName + '" --> "' + path + '"')
-      let importContent = importJS(importPath) || ''
+			!options.hideConsole && console.log('import "' + fileName + '" --> "' + path + '"');
+			let importContent = importJS(importPath) || "";
 
-      return importContent
-    })
+			return importContent;
+		});
 
+		return content;
+	};
 
-    return content
-  }
-
-	return through.obj(function (file, enc, cb) {
+	return through.obj(function(file, enc, cb) {
 		if (file.isNull()) {
-			cb(null, file)
-			return
+			cb(null, file);
+			return;
 		}
 
 		if (file.isStream()) {
-			cb(new gutil.PluginError('gulp-js-import', 'Streaming not supported'))
-			return
+			cb(new PluginError("gulp-js-import", "Streaming not supported"));
+			return;
 		}
 
-    let content
-    try { 
-      content = importJS(file.path)
-    } catch(e) {
-      cb(new gutil.PluginError('gulp-js-import', e.message))
-      return
-    }
+		let content;
+		try {
+			content = importJS(file.path);
+		} catch (e) {
+			cb(new PluginError("gulp-js-import", e.message));
+			return;
+		}
 
-		file.contents = new Buffer(content)
-		file.path = gutil.replaceExtension(file.path, '.js')
-		!options.hideConsole && console.log('ImportJS finished.')
-		cb(null, file)
-	})
-}
+		file.contents = new Buffer(content);
+		file.path = replaceExtension(file.path, ".js");
+		!options.hideConsole && console.log("ImportJS finished.");
+		cb(null, file);
+	});
+};
